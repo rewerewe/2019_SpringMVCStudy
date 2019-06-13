@@ -23,13 +23,17 @@ public class HelloController implements Controller
 		// 액션 코드
 		ModelAndView mav = new ModelAndView();
 		
-		String message = "Hello, SpringMVC World~!!!";
+		String message = "Hello, SpringMVC World~!!!2";
 		
-		mav.addObject("message", message);		// message 라는 키값으로 message Object 를 컨트롤 하겠다. request.setAtrribute 한 것과 같다. 
+		// 1. servlet/jsp 방식
+		// request.setAttribute("message", message);
+		// request.getRequestDispatcher("/WEB-INF/views/Hello.jsp").forward(request, response);
+		
+		// 2. spring mvc의 ModelAndView방식
+		mav.addObject("message", message);		// message 라는 키값으로 message Object 를 컨트롤 하겠다. request.setAtrribute 한 것과 같다.
 		mav.setViewName("/WEB-INF/views/Hello.jsp");	// Hello.jsp 에 바로 접속할 수 없도록 WEB-INF 폴더에 생성할 예정. 
 														// 실제 객체를 넘겨주는 게 아닌 setViewName 으로 View 이름으로 경로만 지정해주는 것. 
 		return mav;
-
 	}
 	
 }
