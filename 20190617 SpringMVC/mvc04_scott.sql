@@ -13,8 +13,14 @@ CREATE TABLE REGION
 
 --○ 시퀀스 생성(지역: REGION)
 CREATE SEQUENCE REGIONSEQ
-NOCACHE;
+START WITH 0
+MINVALUE 0
 --==>> Sequence REGIONSEQ이(가) 생성되었습니다.
+;
+
+DROP TABLE REGION PURGE;
+
+DROP SEQUENCE REGIONSEQ;
 
 --○ 데이터 입력(지역 데이터 입력)
 INSERT INTO REGION(REGIONID, REGIONNAME) VALUES(REGIONSEQ.NEXTVAL, '서울');
@@ -57,7 +63,9 @@ CREATE TABLE POSITION
 
 --○ 시퀀스 생성 (직위 : POSITION)
 CREATE SEQUENCE POSITIONSEQ
-NOCACHE;
+START WITH 0
+MINVALUE 0
+;
 --==>> Sequence POSITIONSEQ이(가) 생성되었습니다.
 
 --○ 데이터 입력(직위 데이터 입력)
@@ -103,7 +111,9 @@ CREATE TABLE DEPARTMENT
 
 --○ 시퀀스 생성(부서 : DEPARTMENT)
 CREATE SEQUENCE DEPARTMENTSEQ
-NOCACHE;
+START WITH 0
+MINVALUE 0
+;
 --==>> Sequence DEPARTMENTSEQ이(가) 생성되었습니다.
 
 DROP TABLE DEPARTMENT PURGE;
@@ -152,7 +162,10 @@ CREATE TABLE EMPLOYEE
 
 --○ 시퀀스 생성
 CREATE SEQUENCE EMPLOYEESEQ
-NOCACHE;
+START WITH 0
+MINVALUE 0
+;
+
 --==>> Sequence EMPLOYEESEQ이(가) 생성되었습니다.
 
 DROP TABLE EMPLOYEE PURGE;
@@ -334,17 +347,14 @@ FROM EMPLOYEE;
 */
 
 UPDATE EMPLOYEE
-SET SSN1 = SUBSTR( CRYPTPACK.DECRYPT(SSN, '9309171234567'), 1, 6)
-/*                 -------------------------------------- 암호 해제한 후 SUBSTR. 복구해서 잘라낸 930917 만 SSN1 에 담겠다. */
-  , SSN2 = CRYPTPACK.ENCRYPT ( SUBSTR( CRYPTPACK.DECRYPT(SSN, '9309171234567'), 7, 7)
-/*                                     -------------------------------------- 복호화 전체에서 7부터 7자리 1234567     */
-                             , SUBSTR( CRYPTPACK.DECRYPT(SSN, '9309171234567'), 7, 7) );
-/*                                     -------------------------------------- 복호화 전체에서 7부터 7자리 1234567 를 다시 암호화 해서 SSN2 에 담겠다. */
+SET SSN1 = SUBSTR( SSN, 1, 6)
+  , SSN2 =  SUBSTR(SSN, 7, 7)
+;
 --==> 1 행 이(가) 업데이트되었습니다.
                              
 --** 기존 주민번호 컬럼(SSN) 제거
 ALTER TABLE EMPLOYEE
-DROP COLUMN GREDE;
+DROP COLUMN SSN;
 --==>> Table EMPLOYEE이(가) 변경되었습니다.
 
 SELECT *
@@ -355,10 +365,12 @@ FROM EMPLOYEE;
 --> SS1은 생년월일 6자리. SSN2는 주민번호 뒷 7자리 암호화 처리. 기존 SSN 은 제거됨.
 */
 
---** 컬럼 추가 → GREDE - 기본값을 1(일반 사원)로 구성
+--** 컬럼 추가 → GRADE - 기본값을 1(일반 사원)로 구성
 ALTER TABLE EMPLOYEE
 ADD GRADE NUMBER(1) DEFAULT 1;
 --==>> Table EMPLOYEE이(가) 변경되었습니다.
+
+COMMIT;
 
 SELECT * 
 FROM EMPLOYEE;
@@ -451,7 +463,7 @@ GRADE                   NUMBER(1)
 INSERT INTO EMPLOYEE( EMPLOYEEID, NAME, SSN1, SSN2, BIRTHDAY, LUNAR
                     , TELEPHONE, DEPARTMENTID, POSITIONID, REGIONID
                     , BASICPAY, EXTRAPAY)
-VALUES (EMPLOYEESEQ.NEXTVAL, '권홍비', '950410', CRYPTPACK.ENCRYPT('2323234', '2323234')
+VALUES (EMPLOYEESEQ.NEXTVAL, '권홍비', '950410', '2323234'
       , TO_DATE('1995-04-10', 'YYYY-MM-DD'), 0, '010-9962-9626', 1, 1, 1
       , 1500000, 150000 )
 ;  -- 백오십만, 십오만
