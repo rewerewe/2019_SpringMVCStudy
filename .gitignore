@@ -12,3 +12,4 @@
 20190617 SpringMVC/mvc04/build/classes/com/test/mvc/IPositionDAO.class
 20190617 SpringMVC/mvc04/build/classes/com/test/mvc/Region.class
 20190617 SpringMVC/mvc04/build/classes/com/test/mvc/Position.class
+*.class
