@@ -16,6 +16,13 @@
 		ORDER BY MID
 	</select>
 	
+	<select id="one" parameterType="String" resultType="com.test.mybatis.MemberDTO">
+		SELECT MID, NAME, TELEPHONE
+		FROM TBL_MEMBERLIST
+		WHERE 1=1
+		AND MID = #{mid}
+	</select>
+	
 	<select id="count" resultType="java.lang.Integer">
 		SELECT COUNT(*) AS COUNT
 		FROM TBL_MEMBERLIST	
