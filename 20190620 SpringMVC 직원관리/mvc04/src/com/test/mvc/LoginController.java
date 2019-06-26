@@ -71,7 +71,6 @@ public class LoginController implements Controller
 			HttpSession session = request.getSession();
 			session.setAttribute("name", name);
 			
-			
 			// 관리자인지의 여부 확인
 			// employeelist.action 직접 접근해서 들어오는 이용자를 막을 수 없다. → 세션 사용
 			if (admin == null)	//-- 일반 사원으로 로그인 성공한 상황
@@ -80,7 +79,7 @@ public class LoginController implements Controller
 			}
 			else				//-- 관리자로 로그인 성공한 상황
 			{
-				session.setAttribute("admin", "" );
+				session.setAttribute("admin", "Y");
 				mav.setViewName("redirect:employeelist.action"); 	// 세션에서 admin, name 값이 있을 경우만 접근 가능  
 			}
 			
