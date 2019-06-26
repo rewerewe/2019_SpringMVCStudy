@@ -33,7 +33,7 @@ public class MemberMain
 	{
 		// ??? 는 IMemberDAO 가 감싸고 있는 영역?!
 		IMemberDAO dao = sqlSession.getMapper(IMemberDAO.class);
-		//--??
+		//-- sqlSession 에서 xml에 바로 갈 수 없으니 interface 를 중간에 둔 것 
 		
 		model.addAttribute("count", dao.count());
 		model.addAttribute("list", dao.list());

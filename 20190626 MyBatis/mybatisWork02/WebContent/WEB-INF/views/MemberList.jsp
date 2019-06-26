@@ -36,16 +36,54 @@
 	
 	$(document).ready(function()
 	{		
-		$(".modify").click(function(val)
+		$(".modify").click(function(a)
 		{
 			$(".panel-update").css("display","inline");
-			// 이부분 더 찾아볼 것.
-			console(val);
-			$(".updateform").val(val)
 			
+			// 이벤트 객체의 값을 가져옴.
+			var count = a.target.value;
+			
+			//act1(count);
+		
+			// 이 블럭 내에서 $(this) == $(".modify")
+			//act2($(".modify"));
+			act2($(this));
 		});
 	});
+	
+	// id로 직접
+	function act1(count) {
+		var thisMid = $('#mid' + count);
+		var thisName = $('#name' + count);
+		var thisTelephone = $('#telephone' + count);
+		
+		var thisMidText = thisMid.text();
+		var thisNameText = thisName.text();
+		var thisTelephoneText = thisTelephone.text();
+		
+		console.log(thisMidText, thisNameText, thisTelephoneText);
+		
+		$('#midResult').val(thisMidText);
+		$('#nameResult').val(thisNameText);
+		$('#telephoneResult').val(thisTelephoneText);		
+	}
 
+	// 상하좌우
+	function act2(now) {
+		var thisTelephone = now.parent().prev();
+		var thisName = thisTelephone.prev();
+		var thisMid = thisName.prev();
+		
+		var thisTelephoneText = thisTelephone.text();
+		var thisNameText = thisName.text();
+		var thisMidText = thisMid.text();
+		
+		console.log(thisMidText, thisNameText, thisTelephoneText);
+
+		$('#midResult').val(thisMidText);
+		$('#nameResult').val(thisNameText);
+		$('#telephoneResult').val(thisTelephoneText);
+	}
 </script>
 </head>
 <body>
@@ -104,11 +142,11 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="member" items="${list }">
-							<tr>
-								<td>${member.mid }</td>
-								<td>${member.name }</td>
-								<td>${member.telephone }</td>
+						<c:forEach var="member" items="${list}" varStatus="vs">
+							<tr id="tr${vs.count}">
+								<td id="mid${vs.count}">${member.mid }</td>
+								<td id="name${vs.count}">${member.name }</td>
+								<td id="telephone${vs.count}">${member.telephone }</td>
 								<td>
 									<button type="button" class="btn btn-default btn-xs btnDelete" value="${member.mid }" onclick="remove(this.value)">삭제</button>
 									<button type="button" class="btn btn-default btn-xs btnUpdate modify" value="${member.mid }">수정</button>
@@ -129,21 +167,21 @@
 			</div>
 			
 			<div class="panel-body">
-				<form role="form" action="membermodify.action" method="post">
-					<input type="hidden" value="" id="mid" name="mid">
+				<form role="form" name="frm" action="membermodify.action" method="post">
+					<input type="hidden" value="" id="midResult" name="mid">
 					
 					<div class="form-group">
 						<label for="name">
-							NAME : ${name} 
+							NAME : 
 						</label>
-						<input type="text" class="form-control" id="name" name="name">
+						<input type="text" class="form-control" id="nameResult" name="name">
 					</div>
 					
 					<div class="form-group">
 						<label for="telephone">
-							TELEPHONE : ${telephone}
+							TELEPHONE : 
 						</label>
-						<input type="tel" class="form-control" id="telephone" name="telephone">
+						<input type="tel" class="form-control" id="telephoneResult" name="telephone">
 					</div>
 					
 					<button type="submit" class="btn btn-default btn-sm">SUBMIT</button>
