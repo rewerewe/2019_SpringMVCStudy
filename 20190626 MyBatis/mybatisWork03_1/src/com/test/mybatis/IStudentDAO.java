@@ -11,4 +11,6 @@ public interface IStudentDAO
 {
 	public ArrayList<StudentDTO> stuList();
 	public int stuAdd(StudentDTO s);
+	public int count();
+	
 }
