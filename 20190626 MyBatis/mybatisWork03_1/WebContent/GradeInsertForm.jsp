@@ -29,12 +29,12 @@
 	<div class="panel-group">
 		<div class="panel panel-dafault">
 			<div class="panel-heading" id="title">
-				<h1>학생정보 입력</h1>
+				<h1>학생 성적정보 입력</h1>
 				<hr>
 			</div>
 			
 			<div class="panel-body">
-				<form action="studentlist.action" role="form">
+				<form name="frm" action="studentinsert.action" role="form">
 					<div class="form-group">
 						<label for="sid">
 							학생ID:
@@ -69,10 +69,11 @@
 						</label>
 						<input type="text" class="form-control" id="sub3" name="sub3">
 					</div>
+					
+					<button type="submit" class="btn btn-default btn-sm">SUBMIT</button>
 				</form>
 			</div>
 			
-			<button type="submit" class="btn btn-default btn-sm">SUBMIT</button>
 		</div>
 	</div>
 </div>

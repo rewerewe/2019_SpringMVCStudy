@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>StudentList.jsp</title>
+<title>StudentInsertForm.jsp</title>
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <style type="text/css">
@@ -29,36 +29,35 @@
 	<div class="panel-group">
 		<div class="panel panel-dafault">
 			<div class="panel-heading" id="title">
-				<h1>학생 성적정보 입력</h1>
+				<h1>학생정보 입력</h1>
 				<hr>
 			</div>
 			
 			<div class="panel-body">
-				<form action="studentlist.action" role="form">
+				<form name="frm" action="studentinsert.action" role="form">
 					<div class="form-group">
 						<label for="sid">
-							Student ID:
+							학생ID:
 						</label>
 						<input type="text" class="form-control" id="sid" name="sid">
 					</div>
 					
 					<div class="form-group">
 						<label for="name">
-							NAME :
+							이름 :
 						</label> 
 						<input type="text" class="form-control" id="name" name="name">
 					</div>
 					
 					<div class="form-group">
 						<label for="tel">
-							TEL : 
+							전화번호 : 
 						</label>
 						<input type="text" class="form-control" id="tel" name="tel">
 					</div>
+					<button type="submit" class="btn btn-default btn-sm">SUBMIT</button>
 				</form>
 			</div>
-			
-			<button type="submit" class="btn btn-default btn-sm">SUBMIT</button>
 		</div>
 	</div>
 </div>
